@@ -2,10 +2,21 @@ from django.db import models
 
 # Create your models here.
 
+class Division(models.Model):
+	title = models.CharField("Division", max_length=150)
+
+	def __str__(self):
+		return self.title
+
 class Persone(models.Model):
 	# pk/id
 	name = models.CharField("Contact name", max_length=50)
-	subdivision = models.CharField("Subdivision name", max_length=100)
+	division = models.ForeignKey(
+		Division,
+		on_delete=models.PROTECT, 
+		null=True, 
+		verbose_name='Подразделение')
+	note = models.TextField(blank=True, verbose_name="примечание")  # поле "примечание"
 	
 	def __str__(self):
 		return self.name
